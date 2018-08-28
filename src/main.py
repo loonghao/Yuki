@@ -37,7 +37,7 @@ class MainGUI(QtGui.QWidget):
 
     def __init__(self):
         super(MainGUI, self).__init__()
-        RenderAwesomeUI(resource_path('GUI.ui'), self)
+        RenderAwesomeUI(resource_path('resources/gui.ui'), self)
         self.table = QtGui.QTableWidget(self)
         self.verticalLayout.addWidget(self.table)
         self.settings = htk.load_yaml(

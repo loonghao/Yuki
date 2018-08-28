@@ -1,3 +1,4 @@
+# Import built-in modules
 import os
 import sys
 
@@ -12,7 +13,6 @@ def resource_path(relative_path=None):
     if not relative_path:
         return base_path
     return os.path.join(base_path, relative_path)
-
 
 os.environ['PIPELINE_ICON'] = 'logo.ico'
 ROOT = os.path.dirname(__file__)
