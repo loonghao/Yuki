@@ -1,0 +1,18 @@
+build_file: main.py
+options:
+  - '--clean'
+  - '-y'
+
+data:
+  - "resources/splash_screen.png;."
+  - "resources/bg.png;."
+  - "resources/GUI.ui;."
+  - "resources/icon/logo.ico;."
+  - "settings/config.yaml;./settings"
+  - "ffmpeg/*.exe;./ffmpeg"
+
+logo: logo.ico
+
+upx: upx394w
+
+name: octopus
