@@ -1,4 +1,4 @@
-build_file: main.py
+build_file: core.py
 options:
   - '--clean'
   - '-y'
@@ -7,7 +7,7 @@ data:
   - "resources/splash_screen.png;."
   - "resources/bg.png;."
   - "resources/GUI.ui;."
-  - "resources/icon/logo.ico;."
+  - "resources/images/logo.ico;."
   - "settings/config.yaml;./settings"
   - "ffmpeg/*.exe;./ffmpeg"
 
