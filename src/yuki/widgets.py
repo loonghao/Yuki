@@ -2,12 +2,12 @@
 """
 module author: Long Hao <hoolongvfx@gmail.com>
 """
+# Import third-party modules
 from PySide import QtGui
 
 
 class MessageDisplay(QtGui.QDialog):
-    """
-    Shows dialogues as stand alone application i.e. can be called from scripts
+    """Shows dialogues as stand alone application i.e. can be called from scripts
     that have no QApplication running.
     """
 
@@ -18,21 +18,17 @@ class MessageDisplay(QtGui.QDialog):
 
     def __init__(self, title, message, dialog=None):
         """
-        :param title: string, window title
+        Args:
+            title (str): Window title.
+            message (str): Text of body.
+            dialog (QtGui.QMessageBox): information, warning, critical, about
+                                         Default is INFO.
 
-        :param message: body text
-
-        :param dialog: type of dialog (info, warning, critical, about)
-        :type dialog: one of
-            SimpleMessageDisplay.INFO,
-            SimpleMessageDisplay.WARNING,
-            SimpleMessageDisplay.CRITICAL,
-            SimpleMessageDisplay.ABOUT
-
-            Default is INFO
         """
-        utf8_message = QtGui.QApplication.translate(
-            "ship_console", message, None, QtGui.QApplication.UnicodeUTF8)
+        utf8_message = QtGui.QApplication.translate("ship_console",
+                                                    message,
+                                                    None,
+                                                    QtGui.QApplication.UnicodeUTF8)
         if not dialog:
             dialog = MessageDisplay.INFO
         self.app = QtGui.QApplication.instance()
