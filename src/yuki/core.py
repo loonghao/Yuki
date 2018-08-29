@@ -100,37 +100,43 @@ class YukiGUI(QtGui.QWidget):
                         mov_name = os.path.basename(file_path).split('.')[0]
                         thumb_file = os.path.join(self.drag_file, 'thumb',
                                                   '{}.jpg'.format(mov_name))
-                        thumb_file = thumb_file.replace('//', '/')
-                        create_missing_directories(thumb_file)
+                        thumb_file = thumb_file.replace('/', '\\')
+                        folder = os.path.dirname(thumb_file)
+                        create_missing_directories(folder)
                         command = list()
+                        command.append(_FFMPEG_CMD)
                         command.append('-y')
                         command.append('-i')
                         command.append(file_path)
                         command.append('-f')
                         command.append('image2')
-                        command.append('t')
+                        command.append('-t')
                         command.append('0.001')
                         command.append('-vframes')
                         # Make Thumb image in that frame.
-                        command.append('1')
+                        command.append('10')
                         command.append('-vf')
                         # Thumb file scale size.
                         command.append('scale=300:-1:sws_dither=ed')
                         # Thumb save location.
                         command.append(thumb_file)
+                        LOGGER.debug(subprocess.list2cmdline(command))
                         try:
-                            subprocess.check_call(command)
-                        except subprocess.CalledProcessError as e:
-                            LOGGER.error('{}:{}'.format(e, mov_name))
+                            subprocess.check_output(command)
+                        except subprocess.CalledProcessError as err:
+                            LOGGER.error('{}:{}'.format(err, mov_name))
                         worksheet.set_row(row + 1, 130)
                         if thumb_file:
-                            worksheet.insert_image(
-                                row + 1, 0, thumb_file, {
+                            image_format = {
                                     "x_scale": 0.9,
                                     'x_offset': 10,
                                     'y_offset': 10,
                                     "y_scale": 0.9
-                                })
+                            }
+                            worksheet.insert_image(row + 1,
+                                                   0,
+                                                   thumb_file,
+                                                   image_format)
                         item = self.table.item(row, 5)
                         value = item.text()
                         worksheet.write(row + 1, 1, value, format_)
@@ -141,7 +147,7 @@ class YukiGUI(QtGui.QWidget):
                         APP.processEvents()
                         self.progress_bar.setValue(int(row * prog_incr))
             self.progress_bar.hide()
-            MessageDisplay(APP_NAME, "save excel success!")
+            MessageDisplay(APP_NAME, "Save excel success!")
 
     # Code reference from :
     # https://github.com/menpo/menpo/blob/master/menpo/io/input/video.py
@@ -193,16 +199,18 @@ class YukiGUI(QtGui.QWidget):
 
     @progress_bar
     def build_items(self):
+        all_files = []
         self.pushButton.show()
-        self.table.setStyleSheet("""QTableWidget {
-                           color: rgb(250, 250, 250);
-                           }""")
+        sheet = """QTableWidget
+         {
+           color: rgb(250, 250, 250);
+         }
+         """
+        self.table.setStyleSheet(sheet)
         self.table.setRowCount(0)
         self.table.clearContents()
         self.progress_bar.setValue(0)
         self.progress_bar.show()
-        all_files = []
-        # all_files =
         for file_ in os.listdir(self.drag_file):
             ext = get_file_ext(file_)
             if ext in FORMATS:
@@ -222,7 +230,7 @@ class YukiGUI(QtGui.QWidget):
                     if info:
                         layer_item = QtGui.QTableWidgetItem(layer)
                         file_path = os.path.join(self.drag_file, layer)
-                        file_path = file_path.replace('//', '/')
+                        file_path = file_path.replace('/', '\\')
                         layer_item.file_path = file_path
 
                         self.table.setItem(row, 5, layer_item)
@@ -241,7 +249,9 @@ class YukiGUI(QtGui.QWidget):
                     LOGGER.error(e)
                     LOGGER.error(layer)
         else:
-            LOGGER.warning('Did not found any data.')
+            message = 'Did not found any data.'
+            LOGGER.warning(message)
+            MessageDisplay(APP_NAME, message, MessageDisplay.WARNING)
 
     # Code reference from :
     # https://github.com/menpo/menpo/blob/master/menpo/io/input/video.py
