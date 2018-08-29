@@ -20,6 +20,7 @@ from yuki.config import APP_VERSION
 from yuki.config import EXCEL_NAME
 from yuki.config import FORMATS
 from yuki.config import resource_path
+from yuki.utils import catch_error_message
 from yuki.utils import create_missing_directories
 from yuki.utils import get_file_ext
 from yuki.utils import load_style_sheet
@@ -69,6 +70,7 @@ class YukiGUI(QtGui.QWidget):
          }""".replace("<bg>", bg_image)
         self.table.setStyleSheet(style_sheet)
 
+    @catch_error_message
     @progress_bar
     @wait_cursor()
     def export_csv(self):
@@ -178,6 +180,7 @@ class YukiGUI(QtGui.QWidget):
         else:
             event.ignore()
 
+    @catch_error_message
     def dropEvent(self, event):
         if event.mimeData().hasUrls:
             event.setDropAction(QtCore.Qt.CopyAction)
@@ -197,7 +200,9 @@ class YukiGUI(QtGui.QWidget):
                     else:
                         LOGGER.warning('please drop the folder try again.')
 
+    @catch_error_message
     @progress_bar
+    @wait_cursor()
     def build_items(self):
         all_files = []
         self.pushButton.show()
@@ -209,8 +214,6 @@ class YukiGUI(QtGui.QWidget):
         self.table.setStyleSheet(sheet)
         self.table.setRowCount(0)
         self.table.clearContents()
-        self.progress_bar.setValue(0)
-        self.progress_bar.show()
         for file_ in os.listdir(self.drag_file):
             ext = get_file_ext(file_)
             if ext in FORMATS:
