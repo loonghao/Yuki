@@ -1,7 +1,6 @@
 Yuki
 ====
-Analyze all the videos in a folder,
-export the thumbnails and output the Excel file.
+Analyze all videos in the drag and drop folder, export thumbnails and export to Excel file.
 
 ![icon](https://github.com/loonghao/Yuki/blob/master/src/yuki/resources/images/yuki.png)
 
