@@ -16,3 +16,5 @@ build/
 # Documentation build folders.
 docs/_*
 docs/src/*
+!/target/
+!/src/build/
