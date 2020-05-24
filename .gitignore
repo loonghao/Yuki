@@ -20,3 +20,4 @@ docs/src/*
 !/src/build/
 !/target/
 !/target/
+venv/*
