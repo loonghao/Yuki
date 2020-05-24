@@ -1,0 +1,35 @@
+{
+  "app_name": "yuki",
+  "author": "Hal Long",
+  "main_module": "src/main/python/app.py",
+  "version": "1.0.0",
+  "excel_file_name": "shot_info.xlsx",
+  "support_formats": [
+    "mov",
+    "mp4",
+    "avi",
+    "mkv"
+  ],
+  "public_settings": [
+    "excel_file_name",
+    "support_formats",
+    "headers"
+  ],
+  "import_hide": [
+    "yuki"
+  ],
+  "headers": [
+    "thumbnail",
+    "duration",
+    "fps",
+    "resolution",
+    "frame_range"
+  ],
+  "hidden_imports": [
+    "yuki.headers.thumbnail",
+    "yuki.headers.duration",
+    "yuki.headers.fps",
+    "yuki.headers.resolution",
+    "yuki.headers.frame_range"
+  ]
+}
