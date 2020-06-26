@@ -17,6 +17,12 @@ Features
 - Export thumbnails.
 - Save to ExcelWriter.
 
+
+Main Window
+===========
+
+![Alt text](/src/main/resources/base/main_window.png "main_window")
+
 Build exe and installer via fbs
 ===============================
 
