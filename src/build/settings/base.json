@@ -1,5 +1,5 @@
 {
-  "app_name": "yuki",
+  "app_name": "Yuki",
   "author": "Hal Long",
   "main_module": "src/main/python/app.py",
   "version": "1.0.0",

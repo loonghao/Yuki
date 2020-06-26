@@ -1,13 +1,11 @@
-import os
-import subprocess
+# Import built-in modules
 import logging
 
-import xlsxwriter
-from yuki import utils
-from yuki import ui_helper
-from PySide2 import QtWidgets
+# Import third-party modules
 from PySide2 import QtGui
 
+# Import local modules
+from yuki import ui_helper
 from yuki import widgets
 from yuki.excel_writer import ExcelWriter
 
@@ -39,12 +37,13 @@ class Controller(object):
         stylesheet = self._context.get_resource('styles.qss')
         self._context.app.setStyleSheet(open(stylesheet).read())
         self.set_background_image()
-        # print(self._context.app.styleSheet())
 
     def set_background_image(self):
-        bg_image = self._context.get_resource("drag-and-drop.png").replace("\\", "/")
+        bg_image = self._context.get_resource("drag-and-drop.png").replace(
+            "\\", "/")
         self.view.startup_view.setPixmap(QtGui.QPixmap(bg_image))
 
+    @ui_helper.progress_bar
     def _export_to_excel(self):
         excel_file_name = self.model.get_excel_file_path(self._drag_path)
         with ExcelWriter(excel_file_name) as worksheet:
@@ -53,19 +52,15 @@ class Controller(object):
                 for column_index, header in enumerate(self.model.headers)
             )
             for column_index, header in enumerate(self.model.headers):
+                prog_incr = 100.0 / self.view.table.rowCount()
                 for row_num in range(self.view.table.rowCount()):
-                    self.progress_bar.setValue(row_num + 1)
                     item = self.view.table.item(row_num, column_index)
-                    value = item.text()
-
-                    print(row_num, column_index)
                     header.write(worksheet, row_num,
                                  column_index,
-                                 value)
-                    self.progress_bar.setValue(int(row_num % 100))
+                                 item.text())
+                    self.progress_bar.setValue(int(row_num * prog_incr))
 
     @ui_helper.catch_error_message
-    @ui_helper.progress_bar
     @ui_helper.wait_cursor
     def process(self):
         self._export_to_excel()
@@ -82,8 +77,8 @@ class Controller(object):
         all_video_info = []
         prog_incr = 100.0 / count
         for index, file_ in enumerate(all_files):
-            all_video_info.append(self.model.get_video_info(file_))
             self._context.app.processEvents()
+            all_video_info.append(self.model.get_video_info(file_))
             self.progress_bar.setValue(int(index * prog_incr))
         data = {
             "all_video_info": all_video_info,
@@ -112,4 +107,3 @@ class Controller(object):
         self.view.group_main_widgets.setVisible(show_main_widgets)
         self.view.startup_view.setVisible(not show_main_widgets)
         self.view.push_button.setVisible(show_main_widgets)
-

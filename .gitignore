@@ -21,3 +21,4 @@ docs/src/*
 !/target/
 !/target/
 venv/*
+!/target/

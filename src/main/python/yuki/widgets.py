@@ -3,9 +3,9 @@ import logging
 import os
 
 # Import third-party modules
-from PySide2 import QtWidgets
-from PySide2 import QtGui
 from PySide2 import QtCore
+from PySide2 import QtGui
+from PySide2 import QtWidgets
 
 
 class CustomTableView(QtWidgets.QTableWidget):
@@ -45,42 +45,11 @@ class CustomTableView(QtWidgets.QTableWidget):
             for column, key in enumerate(info.keys()):
                 item = QtWidgets.QTableWidgetItem()
 
-                if key == "thumbnail":
-                    self.call
-                else:
-                    item.setText(str(info[key]))
-                    self.setItem(index, column, item)
-
-
-class MoviePlayer(QtWidgets.QWidget):
-    """A Movie Player Widget for playing moving images (gifs, videos)."""
-
-    def __init__(self, parent=None, image_path=None):
-        """Initialization for the Movie Player widget.
-
-        Args:
-            parent (QtGui.QWidget): The parent widget of this widget.
-            image_path (str): The path to the image to display.
-
-        """
-        super(MoviePlayer, self).__init__(parent)
-
-        self.movie_screen = QtWidgets.QLabel()
-        self.movie_screen.setSizePolicy(
-            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
-        self.movie_screen.setAlignment(QtCore.Qt.AlignCenter)
-
-        main_layout = QtWidgets.QVBoxLayout()
-        main_layout.addWidget(self.movie_screen)
-        self.setLayout(main_layout)
-        print(image_path)
-        self.movie = QtGui.QMovie(image_path.replace('\\', "/"))
-        self.movie.setCacheMode(QtGui.QMovie.CacheAll)
-        self.movie.setSpeed(100)
-        self.movie_screen.setMovie(self.movie)
-        # If you want to have something start/stop, you'll want to move this
-        # somewhere. Right now, it just autostarts.
-        # self.movie.start()
+                # if key == "thumbnail":
+                #     self
+                # else:
+                item.setText(str(info[key]))
+                self.setItem(index, column, item)
 
 
 class Thumbnail(QtWidgets.QLabel):

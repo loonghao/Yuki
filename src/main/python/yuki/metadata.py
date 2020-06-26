@@ -1,11 +1,12 @@
 # Import built-in modules
-from pprint import pformat
 import os
+from pprint import pformat
 
 # Import third-party modules
 import ffmpeg
 
 # Import local modules
+from yuki import paths
 from yuki.error import FfmpegError
 
 
@@ -42,15 +43,14 @@ class VideoMetadata:
         drag_path, mov_name = os.path.split(video_file)
         path, _ = os.path.splitext(video_file)
         thumb_dir = video_metadata.get_temp_thumb_dir(drag_path)
-        if not os.path.isdir(thumb_dir):
-            os.makedirs(thumb_dir)
-        thumb_file = os.path.join(thumb_dir,
-                                  '{}.jpg'.format(mov_name.split('.')[0]))
+        paths.ensure_paths(thumb_dir)
+        name = mov_name.split('.')[0]
+        thumb_file = os.path.join(thumb_dir, f'{name}.jpg')
         thumb_file = thumb_file.replace('/', '\\')
         process = (
             ffmpeg
                 .input(video_file)
-                .filter("scale", 600, -1)
+                .filter("scale", 300, -1)
                 .output(thumb_file, vframes=1, format='image2', vcodec='mjpeg')
                 .overwrite_output()
         )

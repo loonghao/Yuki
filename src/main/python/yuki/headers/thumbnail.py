@@ -15,7 +15,7 @@ class Header(AbstractHeader):
     """
     NAME = 'Thumbnail'
 
-    def write(self, worksheet, row, column, info, settings=None):
+    def write(self, worksheet, row, column, content):
         """Write the clip info in the excel.
 
         Args:
@@ -23,10 +23,10 @@ class Header(AbstractHeader):
                 instance.
             row (int): Number of row in excel.
             column (int): Number of column in excel.
-            track_item (hiero.core.TrackItem): The item on a Track.
+            content (str): The content will be written.
 
         """
-        if not os.path.isfile(info):
+        if not os.path.isfile(content):
             info = "OFFLINE"
             return worksheet.write(row + 1, column, info)
-        worksheet.insert_image(row + 1, column, info)
+        worksheet.insert_image(row + 1, column, content)

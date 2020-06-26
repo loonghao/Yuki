@@ -13,7 +13,7 @@ class Header(AbstractHeader):
     """
     NAME = 'FPS'
 
-    def write(self, worksheet, row, column, info, settings=None):
+    def write(self, worksheet, row, column, content):
         """Write the clip info in the excel.
 
         Args:
@@ -21,7 +21,7 @@ class Header(AbstractHeader):
                 instance.
             row (int): Number of row in excel.
             column (int): Number of column in excel.
-            track_item (hiero.core.TrackItem): The item on a Track.
+            content (str): The content will be written.
 
         """
-        worksheet.write(row + 1, column, info)
+        worksheet.write_string(row + 1, column, content)

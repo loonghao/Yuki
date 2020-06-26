@@ -1,10 +1,10 @@
 # Import built-in modules
-import os
 import importlib
 import logging
+import os
 
 # Import local modules
-from yuki import utils
+from yuki import paths
 from yuki.metadata import VideoMetadata
 
 
@@ -28,7 +28,7 @@ class Model(object):
             name (str): The name of the custom header script.
 
         """
-        header = importlib.import_module("yuki.headers.{}".format(name))
+        header = importlib.import_module(f"yuki.headers.{name}")
         custom_header = header.Header()
         logger = logging.getLogger(__name__)
         logger.debug('Register header: %s', custom_header.NAME)
@@ -56,22 +56,20 @@ class Model(object):
                 "duration": metadata.duration,
                 "fps": metadata.fps}
 
-    def get_video_info_by_files(self, files):
-        return [self.get_video_info(file) for file in files]
-
-    # def export_thumbnails(self, files):
-    #     metadata = VideoMetadata.export_thumbnail()
-    #     [VideoMetadata.export_thumbnail() for file in files]
-
     @staticmethod
     def get_header():
-        return ["thumbnail", "duration", "width", "height", "frames",
-                "fps", "file_name"]
+        return ["thumbnail",
+                "duration",
+                "width",
+                "height",
+                "frames",
+                "fps",
+                "file_name"]
 
     def get_videos(self, drag_path):
         files = []
         for file_name in os.listdir(drag_path):
-            ext = utils.get_file_ext(file_name)
+            ext = paths.get_file_ext(file_name)
             if ext in self._settings["support_formats"]:
                 files.append(
                     os.path.join(drag_path, file_name).replace("\\", "/")

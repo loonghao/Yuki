@@ -3,9 +3,6 @@
 # Import built-in modules
 import abc
 
-# Import third-party modules
-from PySide2 import QtWidgets  # pylint: disable=no-module-name
-
 
 class AbstractHeader:
     """The abstract header of export excel.
@@ -33,7 +30,7 @@ class AbstractHeader:
         self.settings.update(**dict_)
 
     @abc.abstractmethod
-    def write(self, worksheet, row, column, info, settings=None):
+    def write(self, worksheet, row, column, content):
         """The custom header write function.
 
         Args:
@@ -41,8 +38,7 @@ class AbstractHeader:
                 instance.
             row (int): Number of row in excel.
             column (int): Number of column in excel.
-            info (info): The item on a Track.
-            settings (dict): The settings of the custom header.
+            content (str)
 
         """
         pass

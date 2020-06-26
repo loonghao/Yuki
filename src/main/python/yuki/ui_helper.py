@@ -1,25 +1,11 @@
-# -*- coding: utf-8 -*-
-"""
-module author: Long Hao <hoolongvfx@gmail.com>
-"""
-
 # Import built-in modules
 import logging
-import traceback
 import os
 from functools import wraps
 
 # Import third-party modules
-from PySide2 import QtWidgets
 from PySide2 import QtCore
-
-# Import local modules
-from yuki.error import YukiError
-
-
-def create_missing_directories(folder):
-    if not os.path.exists(folder):
-        os.makedirs(folder)
+from PySide2 import QtWidgets
 
 
 def get_file_ext(path):
@@ -196,6 +182,7 @@ def catch_error_message(func):
             msg.setText(message)
             msg.exec_()
             # raise YukiError(message)
+
     return _deco
 
 
@@ -226,4 +213,3 @@ class ProgressBarMrg(object):  # pylint: disable=too-few-public-methods
     def __exit__(self, exc_type, exc_val, exc_tb):
         """Hide the progress bar."""
         self.progress_bar.hide()
-

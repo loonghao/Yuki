@@ -21,16 +21,16 @@ exe = EXE(pyz,
           a.scripts,
           [],
           exclude_binaries=True,
-          name='yuki',
+          name='Yuki',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,
           upx=False,
-          console=True , icon='C:\\Users\\hao.long\\yuki\\src\\main\\icons\\Icon.ico')
+          console=False , icon='C:\\Users\\hao.long\\yuki\\src\\main\\icons\\Icon.ico')
 coll = COLLECT(exe,
                a.binaries,
                a.zipfiles,
                a.datas,
                strip=False,
                upx=False,
-               name='yuki')
+               name='Yuki')
