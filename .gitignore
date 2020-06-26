@@ -17,4 +17,4 @@ build/
 docs/_*
 docs/src/*
 target/*
-venv/*
+/venv/
