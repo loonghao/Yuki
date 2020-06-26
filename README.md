@@ -13,14 +13,6 @@ Features
 - Export thumbnails.
 - Save to ExcelWriter.
 
-Requirements
-============
-- fbs==0.8.6
-- PySide2==5.12.2
-- XlsxWriter==1.0.2
-
-![demo](https://user-images.githubusercontent.com/13111745/44737904-d0cc7500-ab25-11e8-8a71-dccb574b777f.gif)
-
 Build exe and installer via fbs
 ===============================
 
@@ -31,4 +23,3 @@ fbs freeze
 fns installer
 ```
 More details docs about [`fbs`](https://build-system.fman.io/manual/)
-
